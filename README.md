@@ -1,57 +1,76 @@
 # Cybernode HUD
 
-ホログラム風の「ハッカーっぽい」コンソール UI。HTML / CSS / Canvas だけで動く 1 ファイル構成で、ビルドもライブラリも不要です。
+ハッカーごっこ用のホログラム UI 集。HTML / CSS / Canvas だけで動き、ビルドもライブラリも不要です。
+28 枚のパネルを、まとめて眺める「ビュー」と、1 枚だけを大きく映す「単体ページ」で開けます。
 
-![Cybernode HUD](docs/screenshot.jpg)
+**https://yasut0ra.github.io/cybernode-hud/**
 
-## 動かし方
+![Main Console](docs/screenshot.jpg)
 
-`index.html` をブラウザで開くだけです（フォントは Google Fonts から読み込みます）。
+| Network Ops | Dev Studio | Data Lab |
+| --- | --- | --- |
+| ![Network Ops](docs/ops.jpg) | ![Dev Studio](docs/dev.jpg) | ![Data Lab](docs/data.jpg) |
 
-```bash
-open index.html
-```
+## ページ
+
+| URL | 内容 |
+| --- | --- |
+| `index.html` | ハブ。ビューとパネルの一覧から選んで開く |
+| `view.html#main` | Main Console。最初に作った 10 パネルの構成 |
+| `view.html#ops` | Network Ops。世界地図・データセンター・トラフィック・アラート |
+| `view.html#dev` | Dev Studio。エディタ・ターミナル・ファイル・コマンドパレット・カンバン・チャット |
+| `view.html#sec` | Security Center。ロック解除・認証・スキャン・異常検知・脅威マップ |
+| `view.html#data` | Data Lab。ヒートマップ・ライブ表・パイプライン・ウィジェット |
+| `view.html#wall` | The Wall。全 28 パネルを 1 ページに敷き詰めたスクロール用 |
+| `view.html#<panel>` | 単体ページ。例: `view.html#globe`、`view.html#term` |
+
+各パネル右上の ↗ から、そのパネルの単体ページを新しいタブで開けます。
+
+## VR ゴーグルで使う
+
+- Quest などのブラウザでウィンドウを 3 枚並べ、正面に `#main`、左右に `#ops` と `#dev` や `#sec` を開くと囲まれ感が出ます
+- 単体ページはパネル 1 枚が画面いっぱいに広がるので、ターミナルや地球儀を大きく映すのに向いています
+- 重いときは画面下のバーで **BLUR**（ガラスのぼかし）を OFF にすると描画がかなり軽くなります
+- 設定（アクセント色・エフェクト）はブラウザに保存され、全ページで共有されます
 
 ## パネル
 
-| パネル | 内容 |
+| グループ | パネル |
 | --- | --- |
-| Global Network | ドットで描いた地球儀が自転し、都市間を光の弧が走る。ドラッグで回転 |
-| コードエディタ | Python / Rust のコードがシンタックスハイライト付きでタイピングされる |
-| System Dashboard | CPU・RAM・GPU のリングゲージ、スパークライン、稼働時間 |
-| Terminal | 起動デモのあと、コマンドを入力できる |
-| Network Monitor | IN / OUT の波形がリアルタイムで流れる |
-| Target Analysis | 回転するワイヤーフレームのビルを走査線がスキャンし、チェックリストが進む |
-| Data Analysis | 棒グラフ、ドーナツ、エリアチャート、KPI |
-| Security Core | 回転リングのロック。クリックで解錠シーケンスと全画面の ACCESS GRANTED |
-| Data Flow | ベジェ曲線の上をパケットが流れる |
+| Network | Global Network（地球儀）· World Map · Network Monitor · Data Center 3D · Alert Center |
+| Security | Security Core · Authentication · Target Analysis · Anomaly Detection · Packet Stream |
+| Develop | Editor · Terminal · File Explorer · Command Palette · Project Tasks（カンバン）· Comms（チャット）· Release Timeline |
+| Data | Data Analysis · Activity Heatmap · Live Metrics · Data Flow · Node Graph |
+| System | Workspace（ナビ）· System Dashboard · Resource Meters · Process Tree · Widgets · Settings |
 
-## ターミナルのコマンド
+## 操作
 
-| コマンド | 動作 |
-| --- | --- |
-| `help` | コマンド一覧 |
-| `scan` | ターゲットを再スキャン |
-| `trace <city>` | 東京から都市への回線を地球儀に描く（`lon` `nyc` `sfo` `syd` など） |
-| `decrypt` | 暗号メッセージを解読 |
-| `breach` | アクセスシーケンスを実行 |
-| `theme <name>` | アクセント色を変更（`neon` `phosphor` `amber` `ice`） |
-| `matrix` | コードレインの ON / OFF |
-| `glitch` | 画面グリッチ |
-| `whoami` `ls` `date` `clear` | おまけ |
+- **ターミナル**: `help` `scan` `trace <city>` `decrypt` `breach` `theme <name>` `matrix` `glitch` `open <view|panel>` `ls` など。↑↓ で履歴、Tab で補完
+- **コマンドパレット**: `⌘K` / `Ctrl+K` で呼び出し。ビュー移動・テーマ変更・演出を実行できる
+- **チャット**: 話しかけるとボットが返事をする。「breach」「trace」「rain」などに反応
+- **ロック**: Security Core のロックをクリックで解錠シーケンス → ACCESS GRANTED
+- **地球儀**: ドラッグで回転
+- **カンバン**: カードは自動で進むほか、ドラッグでも移動できる
+- **ライブ表**: 見出しクリックで並び替え
 
-↑↓ で履歴、Tab で補完。
+`prefers-reduced-motion` が有効な環境では動きを止めて表示します。
 
-## 演出
+## 構成
 
-- パネルは 1 本の線からホログラムのように展開して出現する
-- パネル全体が手前に湾曲した壁のように並び、マウスに合わせて傾く（視差）。ホバーで浮き上がる
-- 背景は窓の灯る街並み、流れる床グリッド、漂う光の粒
-- 画面下のバーでアクセント色と、走査線・視差・コードレイン・効果音を切り替え（設定はブラウザに保存）
-- `prefers-reduced-motion` が有効な環境では動きを止めて表示する
+```
+index.html        ハブ
+view.html         ビュー / 単体ページ（#ハッシュで切り替え）
+css/hud.css       見た目すべて（色は :root の CSS 変数）
+js/core.js        テーマ・設定・背景・オーバーレイ・パネル登録・ビュー定義・起動
+js/geo.js         大陸の輪郭データと都市
+js/p-classic.js   最初からあるパネル
+js/p-ops.js       ネットワーク系パネル
+js/p-dev.js       開発系パネル
+js/p-data.js      データ・認証・設定・ウィジェット
+```
 
-## カスタマイズ
+パネルは `HUD.def('名前', { title, group, desc, build(pb, el) { … } })` で登録します。
+ビューの並びは `js/core.js` の `VIEWS` に `[パネル名, 横幅(12分割), 高さ(行数), タブレット幅(6分割)]` で書きます。
+パネル同士は `HUD.emit('trace', 'LON')` のようなイベントでつながっています（`trace` `scan` `breach` `open-file` など）。
 
-色はすべて `:root` の CSS 変数（`--a1` `--a2` `--a3` など）から決まります。テーマを増やすときは `:root[data-accent="名前"]` ブロックを追加し、スクリプト内の `ACCENTS` 配列とドックのボタンに名前を足してください。
-
-各パネルは `<section class="panel">` と、スクリプト内の対応する `draw*` / `update*` 関数のセットになっているので、気に入ったパネルだけ切り出して別のページに流用できます。
+ローカルでは `index.html` をブラウザで開くだけで動きます。
