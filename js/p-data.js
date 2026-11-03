@@ -189,7 +189,7 @@ H.def('auth', {
     const status = (t, cls = '') => { st.textContent = t; st.className = 'au-status ' + cls; };
     async function play() {
       const id = ++run, alive = () => id === run, w = ms => sleep(REDUCED ? 0 : ms);
-      setF(fu, '', 'Username'); setF(fp, '', 'Password'); otp.forEach(i => { i.textContent = ''; i.classList.remove('fill'); });
+      setF(fu, '', 'Username'); setF(fp, '', 'Password'); otp.forEach(i => { i.textContent = ''; i.classList.remove('on'); });
       btn.className = 'au-btn'; btn.textContent = 'SIGN IN'; status('AWAITING OPERATOR');
       await w(1200); if (!alive()) return;
       const user = pick(['operator', 'ghost', 'nyx', 'root', 'kurogane']);
@@ -203,8 +203,8 @@ H.def('auth', {
       let tries = Math.random() < .25 ? 2 : 1;
       while (tries--) {
         status('ENTER 6-DIGIT CODE');
-        otp.forEach(i => { i.textContent = ''; i.classList.remove('fill'); });
-        for (const i of otp) { await w(rand(120, 220)); if (!alive()) return; i.textContent = ri(0, 9); i.classList.add('fill'); H.tone(1500, .02, 'square', .012); }
+        otp.forEach(i => { i.textContent = ''; i.classList.remove('on'); });
+        for (const i of otp) { await w(rand(120, 220)); if (!alive()) return; i.textContent = ri(0, 9); i.classList.add('on'); H.tone(1500, .02, 'square', .012); }
         await w(500); if (!alive()) return;
         if (tries) { status('INVALID CODE · RETRY', 'err'); H.tone(200, .15, 'sawtooth', .02); await w(900); if (!alive()) return; }
       }

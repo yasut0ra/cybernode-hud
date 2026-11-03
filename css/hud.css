@@ -508,7 +508,7 @@ kbd{padding:1px 6px;border:1px solid var(--line);border-radius:3px;font-family:v
 .au-f .cur{display:inline-block;width:6px;height:13px;margin-left:1px;vertical-align:-2px;background:var(--a1);animation:blink 1s steps(1) infinite}
 .au-otp{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
 .au-otp i{display:grid;place-items:center;height:28px;border:1px solid var(--line-soft);border-radius:4px;font-style:normal;font-family:var(--f-mono);font-size:13px;color:var(--ink);background:rgba(0,0,0,.25);transition:border-color .2s}
-.au-otp i.fill{border-color:var(--a1);box-shadow:0 0 8px var(--glow)}
+.au-otp i.on{border-color:var(--a1);box-shadow:0 0 8px var(--glow)}
 .au-btn{display:grid;place-items:center;height:30px;border-radius:5px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--void);background:var(--a1);box-shadow:0 0 16px var(--glow);transition:background .3s,color .3s,box-shadow .3s}
 .au-btn.busy{color:var(--a1);background:transparent;box-shadow:inset 0 0 0 1px var(--a1)}
 .au-btn.okay{background:var(--ok);box-shadow:0 0 22px var(--ok)}
